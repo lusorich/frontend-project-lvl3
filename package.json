@@ -23,10 +23,12 @@
   "homepage": "https://github.com/lusorich/frontend-project-lvl3#readme",
   "dependencies": {
     "bootstrap": "^5.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "workbox-webpack-plugin": "^6.5.4"
   },
   "devDependencies": {
     "@webpack-cli/generators": "^2.5.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.16",

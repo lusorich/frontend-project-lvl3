@@ -8,4 +8,4 @@
 
 ### Vercel:
 
-The project can be viewed at the following link.[Vercel project](https://frontend-project-lvl3-qcz87xw54-lusorich.vercel.app/)
+The project can be viewed at the following link. [Vercel project](https://frontend-project-lvl3-qcz87xw54-lusorich.vercel.app/)

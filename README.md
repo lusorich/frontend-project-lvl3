@@ -6,6 +6,4 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/f0a0c5f13753f3efc56c/maintainability)](https://codeclimate.com/github/lusorich/frontend-project-lvl3/maintainability)
 
-### Vercel:
-
-The project can be viewed at the following link. [Project on Vercel](https://frontend-project-lvl3-qcz87xw54-lusorich.vercel.app/)
+The project can be viewed at the following link -> [Project on Vercel](https://frontend-project-lvl3-qcz87xw54-lusorich.vercel.app/)

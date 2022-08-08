@@ -11,9 +11,7 @@ const rssForm = ({ formOnChange }) => {
     },
   };
 
-  const urlSchema = string()
-    .url("Ссылка должна быть валидным URL")
-    .notOneOf([state.form.data.urlList], "RSS уже существует");
+  const urlSchema = string().url().notOneOf([state.form.data.urlList]);
 
   const formEl = document.forms[0];
   const [input] = formEl.elements;

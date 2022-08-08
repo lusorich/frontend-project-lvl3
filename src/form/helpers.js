@@ -1,6 +1,6 @@
+// @ts-check
 import onChange from "on-change";
 
-// @ts-check
 export const getErrorEl = ({ text }) => {
   const errorEl = document.createElement("p");
   errorEl.classList.add(

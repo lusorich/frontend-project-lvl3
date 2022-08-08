@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/lusorich/frontend-project-lvl3#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "i18next": "^21.8.16",
     "on-change": "^4.0.1",
+    "uuid": "^8.3.2",
     "webpack": "^5.74.0",
     "workbox-webpack-plugin": "^6.5.4",
     "yup": "^0.32.11"

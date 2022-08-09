@@ -1,6 +1,6 @@
 import { string } from "yup";
 import axios from "axios";
-import parser from "../parsers";
+import parser from "./parsers";
 import { v4 as uuidv4 } from "uuid";
 
 const getSubmitHandler = ({ state }) => {

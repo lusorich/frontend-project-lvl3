@@ -82,7 +82,7 @@ export const getPostsEl = ({ posts }) => {
       "border-end-0",
       "py-2"
     );
-    linkEl.classList.add("fw-normal", "link-secondary");
+    linkEl.classList.add("fw-bold");
     btnEl.classList.add("btn", "btn-outline-primary", "btn-sm");
 
     linkEl.href = post.link;

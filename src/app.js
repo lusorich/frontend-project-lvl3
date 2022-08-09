@@ -1,7 +1,7 @@
 import { string } from "yup";
 import axios from "axios";
 import parser from "./parsers";
-import { v4 as uuidv4 } from "uuid";
+import { update } from "./timeout";
 
 const getSubmitHandler = ({ state }) => {
   const urlSchema = string().url().notOneOf([state.form.data.links]);
@@ -35,11 +35,11 @@ const getSubmitHandler = ({ state }) => {
             const feed = {
               title: feedTitle,
               desc: feedDesc,
-              id: uuidv4(),
+              id: state.feeds.length + 1,
             };
 
             const postsEl = doc.querySelectorAll("item");
-            const posts = [...postsEl].map((post) => {
+            const posts = [...postsEl].map((post, index) => {
               const title = post.querySelector("title")?.textContent;
               const description =
                 post.querySelector("description")?.textContent;
@@ -49,7 +49,7 @@ const getSubmitHandler = ({ state }) => {
                 title,
                 description,
                 link,
-                id: uuidv4(),
+                id: index + state.posts.length + 1,
                 feedId: feed.id,
               };
             });
@@ -57,6 +57,12 @@ const getSubmitHandler = ({ state }) => {
             state.feeds = [...state.feeds, feed];
             state.posts = [...state.posts, ...posts];
             state.status = "resolved";
+
+            const { clearTimeouts } = update({
+              urls: state.form.data.links,
+              currentPosts: state.posts,
+              feedId: feed.id,
+            });
           });
       })
       .catch((e) => {

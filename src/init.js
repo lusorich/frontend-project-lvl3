@@ -16,7 +16,7 @@ i18nextInstance.init(
     },
   },
   (err, t) => {
-    if (err) return console.log("something went wrong loading", err);
+    if (err) return console.error("something went wrong loading", err);
     t("key");
   }
 );

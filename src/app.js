@@ -67,67 +67,6 @@ const getSubmitHandler = ({ state }) => {
         };
       });
   };
-
-  // formEl.addEventListener("submit", (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(formEl);
-  //   const enteredUrl = formData.get("url");
-
-  //   urlSchema
-  //     .validate(enteredUrl)
-  //     .then(() => {
-  //       watchedState.form.status = "pending";
-  //       watchedState.form.data.links.push(enteredUrl);
-  //     })
-  //     .then(() => {
-  //       axios
-  //         .get(
-  //           `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(
-  //             enteredUrl
-  //           )}`
-  //         )
-  //         .then((response) => {
-  //           const { contents } = response.data;
-  //           const { doc } = parser(contents, "DOMParser", "text/html");
-
-  //           const feedTitle = doc?.querySelector("title")?.textContent;
-  //           const feedDesc = doc?.querySelector("description")?.textContent;
-
-  //           const feed = {
-  //             title: feedTitle,
-  //             desc: feedDesc,
-  //             id: uuidv4(),
-  //           };
-
-  //           const postsEl = doc.querySelectorAll("item");
-  //           const posts = [...postsEl].map((post) => {
-  //             const title = post.querySelector("title")?.textContent;
-  //             const description =
-  //               post.querySelector("description")?.textContent;
-  //             const link = post.querySelector("link")?.nextSibling?.textContent;
-
-  //             return {
-  //               title,
-  //               description,
-  //               link,
-  //               id: uuidv4(),
-  //               feedId: feed.id,
-  //             };
-  //           });
-
-  //           watchedState.feeds = [...watchedState.feeds, feed];
-  //           watchedState.posts = [...watchedState.posts, ...posts];
-  //           watchedState.status = "resolved";
-  //         });
-  //     })
-  //     .catch((e) => {
-  //       watchedState.status = "rejected";
-  //       watchedState.form = {
-  //         ...watchedState.form,
-  //         errorMsg: e.message,
-  //       };
-  //     });
-  // });
 };
 
 export default getSubmitHandler;

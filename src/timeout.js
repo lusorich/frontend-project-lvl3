@@ -1,7 +1,13 @@
 import axios from "axios";
 import parser from "./parsers";
 
-export const update = ({ urls, timeout = 5000, currentPosts, feedId }) => {
+export const update = ({
+  urls,
+  timeout = 5000,
+  currentPosts,
+  feedId,
+  state,
+}) => {
   const timeoutIds = [];
 
   const updater = (url) => {
@@ -38,6 +44,8 @@ export const update = ({ urls, timeout = 5000, currentPosts, feedId }) => {
               });
             }
           });
+          state.posts.push(...newPosts);
+          state.status = "update";
         });
       updater(url);
     }, timeout);

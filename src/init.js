@@ -34,8 +34,8 @@ export default () => {
     posts: [],
   };
 
-  const watchedState = onChange(state, () => {
-    render(state);
+  const watchedState = onChange(state, (_path, value, previousValue) => {
+    render(state, value, previousValue);
   });
 
   setLocale({

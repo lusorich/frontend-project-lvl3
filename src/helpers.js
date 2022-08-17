@@ -100,6 +100,8 @@ export const getPostsEl = ({ posts }) => {
     return liEl;
   });
 
-  mainContainer.append(...postsEl);
-  return mainContainer;
+  postsContainer.append(...postsEl);
+  mainContainer.append(postsContainer);
+
+  return [mainContainer, postsEl];
 };

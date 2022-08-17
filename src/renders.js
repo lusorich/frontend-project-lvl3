@@ -1,6 +1,6 @@
 import { hasErrorEl, getErrorEl, getFeedsEl, getPostsEl } from "./helpers";
 
-export const render = (state) => {
+export const render = (state, value, previousValue) => {
   const formEl = document.forms[0];
   const parentEl = formEl.parentElement;
   const [inputEl] = formEl.elements;
@@ -22,7 +22,7 @@ export const render = (state) => {
         feeds: state.feeds,
       });
 
-      const postsEl = getPostsEl({
+      const [postsEl] = getPostsEl({
         posts: state.posts,
       });
 
@@ -33,6 +33,23 @@ export const render = (state) => {
       inputEl.value = "";
       inputEl.focus();
 
+      break;
+    }
+    case "update": {
+      if (previousValue.length < value.length) {
+        const postsListEl = postsContainer.querySelector("ul");
+        let newPosts = [];
+
+        for (let i = previousValue.length; i < value.length; i++) {
+          newPosts.push(value[i]);
+        }
+
+        const [, postsEl] = getPostsEl({
+          posts: newPosts,
+        });
+
+        postsListEl.prepend(...postsEl);
+      }
       break;
     }
   }

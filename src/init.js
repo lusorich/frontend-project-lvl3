@@ -3,8 +3,9 @@ import i18next from "i18next";
 import resources from "./locales";
 import { setLocale } from "yup";
 import onChange from "on-change";
-import getSubmitHandler from "./app.js";
+import getSubmitHandler from "./submit.js";
 import { render } from "./renders";
+import getPostsClickHandler from "./posts";
 
 export const i18nextInstance = i18next.createInstance();
 i18nextInstance.init(
@@ -49,4 +50,8 @@ export default () => {
 
   const formEl = document.forms[0];
   formEl.addEventListener("submit", getSubmitHandler({ state: watchedState }));
+
+  const postsContainerEl = document.querySelector(".posts");
+  postsContainerEl?.addEventListener("click", getPostsClickHandler());
+  console.log("postsContainerEl", postsContainerEl);
 };

@@ -62,7 +62,7 @@ const getSubmitHandler = ({ state }) => {
               urls: state.form.data.links,
               currentPosts: state.posts,
               feedId: feed.id,
-              state
+              state,
             });
           });
       })

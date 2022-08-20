@@ -19,6 +19,7 @@ export const update = ({
           )}`
         )
         .then((response) => {
+          state.status = "update";
           const { contents } = response.data;
           const { doc } = parser(contents, "DOMParser", "text/html");
 
@@ -45,7 +46,6 @@ export const update = ({
             }
           });
           state.posts.push(...newPosts);
-          state.status = "update";
         });
       updater(url);
     }, timeout);

@@ -33,6 +33,8 @@ export default () => {
     },
     feeds: [],
     posts: [],
+    postsRead: [],
+    readPost: "",
   };
 
   const watchedState = onChange(state, (_path, value, previousValue) => {
@@ -52,6 +54,8 @@ export default () => {
   formEl.addEventListener("submit", getSubmitHandler({ state: watchedState }));
 
   const postsContainerEl = document.querySelector(".posts");
-  postsContainerEl?.addEventListener("click", getPostsClickHandler());
-  console.log("postsContainerEl", postsContainerEl);
+  postsContainerEl?.addEventListener(
+    "click",
+    getPostsClickHandler({ state: watchedState })
+  );
 };

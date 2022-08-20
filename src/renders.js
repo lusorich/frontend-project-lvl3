@@ -6,6 +6,8 @@ export const render = (state, value, previousValue) => {
   const [inputEl] = formEl.elements;
   const feedsContainer = document.querySelector(".feeds");
   const postsContainer = document.querySelector(".posts");
+  const modalConatainer = document.querySelector(".modal");
+  const bodyEl = document.body;
 
   switch (state.status) {
     case "rejected": {
@@ -50,6 +52,18 @@ export const render = (state, value, previousValue) => {
 
         postsListEl.prepend(...postsEl);
       }
+      break;
+    }
+    case "update_posts_read": {
+      break;
+    }
+    case "read_post": {
+      modalConatainer.classList.add("show");
+      modalConatainer.style.display = "block";
+      bodyEl.classList.add("modal-open");
+      const div = document.createElement("div");
+      div.classList.add("modal-backdrop", "fade", "show");
+      bodyEl.append(div);
       break;
     }
   }

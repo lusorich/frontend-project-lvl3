@@ -14,6 +14,22 @@ export const getErrorEl = ({ text }) => {
   return errorEl;
 };
 
+export const getSuccessEl = ({ text }) => {
+  const successEl = document.createElement("p");
+  successEl.classList.add(
+    "feedback",
+    "m-0",
+    "position-absolute",
+    "small",
+    "text-success"
+  );
+  successEl.textContent = text;
+  return successEl;
+};
+
+export const hasSuccessEl = ({ element }) =>
+  element?.lastElementChild?.classList.contains("text-success") ? true : false;
+
 export const hasErrorEl = ({ element }) =>
   element?.lastElementChild?.classList.contains("text-danger") ? true : false;
 
@@ -91,6 +107,9 @@ export const getPostsEl = ({ posts }) => {
     linkEl.dataset.id = post.id;
     linkEl.dataset.feedId = post.feedId;
     linkEl.textContent = post.title;
+
+    liEl.dataset.id = post.id;
+    liEl.dataset.feedId = post.feedId;
 
     btnEl.dataset.id = post.id;
     btnEl.dataset.feedId = post.feedId;

@@ -15,7 +15,7 @@ const getSubmitHandler = ({ state }) => {
     urlSchema
       .validate(enteredUrl)
       .then(() => {
-        state.status = "pending";
+        state.addFeedAndPostsProcess.status = "loading";
         state.form.data.links.push(enteredUrl);
       })
       .then(() => {
@@ -56,7 +56,8 @@ const getSubmitHandler = ({ state }) => {
 
             state.feeds = [...state.feeds, feed];
             state.posts = [...state.posts, ...posts];
-            state.status = "resolved";
+
+            state.addFeedAndPostsProcess.status = "resolved";
 
             const { clearTimeouts } = update({
               urls: state.form.data.links,
@@ -67,11 +68,8 @@ const getSubmitHandler = ({ state }) => {
           });
       })
       .catch((e) => {
-        state.status = "rejected";
-        state.form = {
-          ...state.form,
-          errorMsg: e.message,
-        };
+        state.addFeedAndPostsProcess.error = e.message;
+        state.addFeedAndPostsProcess.status = "rejected";
       });
   };
 };

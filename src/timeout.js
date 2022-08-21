@@ -19,7 +19,7 @@ export const update = ({
           )}`
         )
         .then((response) => {
-          state.status = "update";
+          state.updatePostsProcess.newPosts = [];
           const { contents } = response.data;
           const { doc } = parser(contents, "DOMParser", "text/html");
 
@@ -45,6 +45,11 @@ export const update = ({
               });
             }
           });
+          state.updatePostsProcess = {
+            status: "update",
+            newPosts,
+          };
+          state.updatePostsProcess.status = "idle";
           state.posts.push(...newPosts);
         });
       updater(url);

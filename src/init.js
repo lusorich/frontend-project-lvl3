@@ -6,6 +6,7 @@ import onChange from "on-change";
 import getSubmitHandler from "./submit.js";
 import { render } from "./renders";
 import getPostsClickHandler from "./posts";
+import getModalClickHandler from "./modal";
 
 export const i18nextInstance = i18next.createInstance();
 i18nextInstance.init(
@@ -24,21 +25,49 @@ i18nextInstance.init(
 
 export default () => {
   const state = {
-    status: "",
     form: {
-      errorMsg: "",
       data: {
         links: [],
       },
     },
     feeds: [],
     posts: [],
-    postsRead: [],
-    readPost: "",
+    addFeedAndPostsProcess: {
+      status: "idle",
+      error: "",
+      successMsg: i18nextInstance.t("successMsg"),
+    },
+    updatePostsProcess: {
+      status: "idle",
+      error: "",
+      newPosts: [],
+    },
+    readPostProcess: {
+      status: "idle",
+      modalStatus: "idle",
+      postReadingId: "",
+      postsReadingId: [],
+      error: "",
+    },
   };
+  const formEl = document.forms[0];
+  const postsContainerEl = document.querySelector(".posts");
+  const modalContainerEl = document.querySelector("#modal");
 
-  const watchedState = onChange(state, (_path, value, previousValue) => {
-    render(state, value, previousValue);
+  // addFeedAndPostsProcess = {
+  //   status: "idle" | "loading" | "resolved" | "rejected"
+  // }
+  // updatePostsProcess = {
+  //   status: "idle" | "resolved" | "rejected"
+  // }
+  // readPostProcess = {
+  //   status: "idle" | "read",
+  //   modalStatus: "idle" | "open" | "close"
+  // }
+
+  const watchedState = onChange(state, (path, value, previousValue) => {
+    const processName = path.split(".")?.[0];
+    render(state, value, previousValue, processName);
   });
 
   setLocale({
@@ -50,12 +79,15 @@ export default () => {
     },
   });
 
-  const formEl = document.forms[0];
   formEl.addEventListener("submit", getSubmitHandler({ state: watchedState }));
 
-  const postsContainerEl = document.querySelector(".posts");
   postsContainerEl?.addEventListener(
     "click",
     getPostsClickHandler({ state: watchedState })
+  );
+
+  modalContainerEl?.addEventListener(
+    "click",
+    getModalClickHandler({ state: watchedState })
   );
 };

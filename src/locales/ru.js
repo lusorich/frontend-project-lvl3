@@ -5,5 +5,6 @@ export default {
     feedsTitle: "Фиды",
     postsTitle: "Посты",
     viewing: "Просмотр",
+    successMsg: "RSS успешно загружен",
   },
 };

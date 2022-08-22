@@ -1,4 +1,3 @@
-// @ts-check
 import i18next from "i18next";
 import resources from "./locales";
 import { setLocale } from "yup";

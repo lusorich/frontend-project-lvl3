@@ -1,4 +1,3 @@
-// @ts-check
 import { i18nextInstance } from "./init";
 
 export const getErrorEl = ({ text }) => {

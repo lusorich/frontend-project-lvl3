@@ -2,6 +2,7 @@ import { string } from "yup";
 import axios from "axios";
 import parser from "./parsers";
 import { update } from "./timeout";
+import { i18nextInstance } from "./init";
 
 const getSubmitHandler = ({ state }) => {
   const urlSchema = string().url().notOneOf([state.form.data.links]);
@@ -28,9 +29,14 @@ const getSubmitHandler = ({ state }) => {
           .then((response) => {
             const { contents } = response.data;
             const { doc } = parser(contents, "DOMParser", "text/html");
+            const rss = doc?.querySelector("rss");
 
-            const feedTitle = doc?.querySelector("title")?.textContent;
-            const feedDesc = doc?.querySelector("description")?.textContent;
+            if (rss === null) {
+              throw new Error(i18nextInstance.t("errorNotValidRSS"));
+            }
+
+            const feedTitle = rss?.querySelector("title")?.textContent;
+            const feedDesc = rss?.querySelector("description")?.textContent;
 
             const feed = {
               title: feedTitle,
@@ -38,7 +44,7 @@ const getSubmitHandler = ({ state }) => {
               id: state.feeds.length + 1,
             };
 
-            const postsEl = doc.querySelectorAll("item");
+            const postsEl = rss.querySelectorAll("item");
             const posts = [...postsEl].map((post, index) => {
               const title = post.querySelector("title")?.textContent;
               const description =
@@ -65,6 +71,10 @@ const getSubmitHandler = ({ state }) => {
               feedId: feed.id,
               state,
             });
+          })
+          .catch((e) => {
+            state.addFeedAndPostsProcess.error = e.message;
+            state.addFeedAndPostsProcess.status = "rejected";
           });
       })
       .catch((e) => {

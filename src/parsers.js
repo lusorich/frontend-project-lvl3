@@ -1,8 +1,10 @@
+/* eslint-disable no-case-declarations */
+// eslint-disable-next-line default-param-last
 const parser = (rawData, type = 'DOMParser', format) => {
   switch (type) {
     case 'DOMParser':
-      const parser = new DOMParser();
-      const parseData = parser.parseFromString(rawData, format);
+      const domParser = new DOMParser();
+      const parseData = domParser.parseFromString(rawData, format);
       return {
         doc: parseData,
       };

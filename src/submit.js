@@ -1,14 +1,16 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable import/no-cycle */
 import { string } from 'yup';
 import axios from 'axios';
-import parser from './parsers';
-import { update } from './timeout';
-import { i18nextInstance } from './init';
+import parser from './parsers.js';
+import { update } from './timeout.js';
+import { i18nextInstance } from './init.js';
 
 const getSubmitHandler = ({ state }) => {
   const urlSchema = string().url().notOneOf([state.form.data.links]);
   const formEl = document.forms[0];
 
-  return e => {
+  return (e) => {
     e.preventDefault();
     const formData = new FormData(formEl);
     const enteredUrl = formData.get('url');
@@ -26,7 +28,7 @@ const getSubmitHandler = ({ state }) => {
               enteredUrl,
             )}`,
           )
-          .then(response => {
+          .then((response) => {
             const { contents } = response.data;
             const { doc } = parser(contents, 'DOMParser', 'text/html');
             const rss = doc?.querySelector('rss');
@@ -47,8 +49,7 @@ const getSubmitHandler = ({ state }) => {
             const postsEl = rss.querySelectorAll('item');
             const posts = [...postsEl].map((post, index) => {
               const title = post.querySelector('title')?.textContent;
-              const description =
-                post.querySelector('description')?.textContent;
+              const description = post.querySelector('description')?.textContent;
               const link = post.querySelector('link')?.nextSibling?.textContent;
 
               return {
@@ -65,17 +66,17 @@ const getSubmitHandler = ({ state }) => {
 
             state.addFeedAndPostsProcess.status = 'resolved';
 
-            const { clearTimeouts } = update({
+            update({
               urls: state.form.data.links,
               currentPosts: state.posts,
               feedId: feed.id,
               state,
             });
           })
-          .catch(e => {
+          // eslint-disable-next-line no-shadow
+          .catch((e) => {
             if (e.message === 'Network Error') {
-              state.addFeedAndPostsProcess.error =
-                i18nextInstance.t('errorNetwork');
+              state.addFeedAndPostsProcess.error = i18nextInstance.t('errorNetwork');
               state.addFeedAndPostsProcess.status = 'rejected';
             } else {
               state.addFeedAndPostsProcess.error = e.message;
@@ -83,7 +84,8 @@ const getSubmitHandler = ({ state }) => {
             }
           });
       })
-      .catch(e => {
+      // eslint-disable-next-line no-shadow
+      .catch((e) => {
         state.addFeedAndPostsProcess.error = e.message;
         state.addFeedAndPostsProcess.status = 'rejected';
       });

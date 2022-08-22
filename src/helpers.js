@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { i18nextInstance } from './init.js';
 
 export const getErrorEl = ({ text }) => {
@@ -26,11 +27,9 @@ export const getSuccessEl = ({ text }) => {
   return successEl;
 };
 
-export const hasSuccessEl = ({ element }) =>
-  element?.lastElementChild?.classList.contains('text-success') ? true : false;
+export const hasSuccessEl = ({ element }) => element?.lastElementChild?.classList.contains('text-success');
 
-export const hasErrorEl = ({ element }) =>
-  element?.lastElementChild?.classList.contains('text-danger') ? true : false;
+export const hasErrorEl = ({ element }) => element?.lastElementChild?.classList.contains('text-danger');
 
 export const getFeedsEl = ({ feeds }) => {
   const mainContainer = document.createElement('div');
@@ -46,7 +45,7 @@ export const getFeedsEl = ({ feeds }) => {
   feedTitle.textContent = i18nextInstance.t('feedsTitle');
   feedTitleContainer.append(feedTitle);
 
-  const feedsEl = feeds.map(feed => {
+  const feedsEl = feeds.map((feed) => {
     const feedEl = document.createElement('li');
     const feedTitleEl = document.createElement('h3');
     const feedDescEl = document.createElement('p');
@@ -83,7 +82,7 @@ export const getPostsEl = ({ posts }) => {
   postsTitle.textContent = i18nextInstance.t('postsTitle');
   postsTitleContainer.append(postsTitle);
 
-  const postsEl = posts.map(post => {
+  const postsEl = posts.map((post) => {
     const liEl = document.createElement('li');
     const linkEl = document.createElement('a');
     const btnEl = document.createElement('button');

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-cycle */
 import {
   hasErrorEl,
   hasSuccessEl,
@@ -5,8 +7,9 @@ import {
   getFeedsEl,
   getPostsEl,
   getSuccessEl,
-} from './helpers';
+} from './helpers.js';
 
+// eslint-disable-next-line import/prefer-default-export, consistent-return
 export const render = (state, value, previousValue, processName) => {
   const formEl = document.forms[0];
   const parentEl = formEl.parentElement;
@@ -22,10 +25,10 @@ export const render = (state, value, previousValue, processName) => {
       case 'rejected': {
         btnEl.classList.remove('disabled');
         inputEl.readOnly = false;
-        hasErrorEl({ element: parentEl }) &&
-          parentEl?.lastElementChild.remove();
-        hasSuccessEl({ element: parentEl }) &&
-          parentEl?.lastElementChild.remove();
+        hasErrorEl({ element: parentEl })
+          && parentEl?.lastElementChild.remove();
+        hasSuccessEl({ element: parentEl })
+          && parentEl?.lastElementChild.remove();
         const errorEl = getErrorEl({
           text: actualState.error,
         });
@@ -36,10 +39,10 @@ export const render = (state, value, previousValue, processName) => {
       case 'resolved': {
         btnEl.classList.remove('disabled');
         inputEl.readOnly = false;
-        hasErrorEl({ element: parentEl }) &&
-          parentEl?.lastElementChild.remove();
-        hasSuccessEl({ element: parentEl }) &&
-          parentEl?.lastElementChild.remove();
+        hasErrorEl({ element: parentEl })
+          && parentEl?.lastElementChild.remove();
+        hasSuccessEl({ element: parentEl })
+          && parentEl?.lastElementChild.remove();
 
         const feedsEl = getFeedsEl({
           feeds: state.feeds,
@@ -65,7 +68,9 @@ export const render = (state, value, previousValue, processName) => {
       case 'loading': {
         btnEl.classList.add('disabled');
         inputEl.readOnly = true;
+        break;
       }
+      default: return '';
     }
   }
   if (processName === 'updatePostsProcess') {
@@ -74,12 +79,12 @@ export const render = (state, value, previousValue, processName) => {
       case 'update': {
         if (previousValue?.newPosts.length < value?.newPosts.length) {
           const postsListEl = postsContainer.querySelector('ul');
-          let newPosts = [];
+          const newPosts = [];
 
           for (
             let i = previousValue?.newPosts.length;
             i < value?.newPosts.length;
-            i++
+            i += 1
           ) {
             newPosts.push(value?.newPosts[i]);
           }
@@ -92,17 +97,17 @@ export const render = (state, value, previousValue, processName) => {
         }
         break;
       }
+      default: return '';
     }
   }
   if (processName === 'readPostProcess') {
     const actualState = state.readPostProcess;
     switch (actualState.status) {
       case 'read': {
-        const postId =
-          actualState.postsReadingId[actualState.postsReadingId.length - 1];
+        const postId = actualState.postsReadingId[actualState.postsReadingId.length - 1];
         const linkEls = postsContainer.querySelectorAll('a');
         const actualLinkEl = [...linkEls].filter(
-          linkEl => linkEl.dataset.id === postId,
+          (linkEl) => linkEl.dataset.id === postId,
         )?.[0];
 
         actualLinkEl.classList.remove('fw-bold');
@@ -110,6 +115,8 @@ export const render = (state, value, previousValue, processName) => {
         actualLinkEl.classList.add('link-secondary');
         break;
       }
+      default:
+        return '';
     }
     switch (actualState.modalStatus) {
       case 'open': {
@@ -117,7 +124,7 @@ export const render = (state, value, previousValue, processName) => {
         const modalTitleEl = document.querySelector('.modal-title');
         const modalBodyEl = document.querySelector('.modal-body');
         const activePost = state.posts.filter(
-          post => Number(post.id) === Number(actualState.postReadingId),
+          (post) => Number(post.id) === Number(actualState.postReadingId),
         )?.[0];
 
         modalConatainer.classList.add('show');
@@ -145,6 +152,8 @@ export const render = (state, value, previousValue, processName) => {
 
         break;
       }
+      default:
+        return '';
     }
   }
 };

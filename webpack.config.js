@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable global-require */
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path');

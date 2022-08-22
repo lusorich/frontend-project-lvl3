@@ -1,6 +1,8 @@
+/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import parser from './parsers.js';
 
+// eslint-disable-next-line import/prefer-default-export
 export const update = ({
   urls,
   timeout = 5000,
@@ -10,7 +12,7 @@ export const update = ({
 }) => {
   const timeoutIds = [];
 
-  const updater = url => {
+  const updater = (url) => {
     const timeoutId = setTimeout(() => {
       axios
         .get(
@@ -18,7 +20,7 @@ export const update = ({
             url,
           )}`,
         )
-        .then(response => {
+        .then((response) => {
           state.updatePostsProcess.newPosts = [];
           const { contents } = response.data;
           const { doc } = parser(contents, 'DOMParser', 'text/html');
@@ -26,14 +28,13 @@ export const update = ({
           const postsEl = doc.querySelectorAll('item');
           const newPosts = [];
 
-          [...postsEl].forEach(post => {
+          [...postsEl].forEach((post) => {
             const title = post.querySelector('title')?.textContent;
             const description = post.querySelector('description')?.textContent;
             const link = post.querySelector('link')?.nextSibling?.textContent;
 
-            const isPostExist =
-              currentPosts.filter(currentPost => currentPost.title === title)
-                .length > 0;
+            const isPostExist = currentPosts.filter((currentPost) => currentPost.title === title)
+              .length > 0;
 
             if (!isPostExist) {
               newPosts.push({
@@ -41,7 +42,7 @@ export const update = ({
                 description,
                 link,
                 id: currentPosts.length + 1 + newPosts.length,
-                feedId: feedId,
+                feedId,
               });
             }
           });
@@ -57,10 +58,9 @@ export const update = ({
     timeoutIds.push(timeoutId);
   };
 
-  urls.forEach(url => updater(url));
+  urls.forEach((url) => updater(url));
 
   return {
-    clearTimeouts: () =>
-      timeoutIds.forEach(timeoutId => clearTimeout(timeoutId)),
+    clearTimeouts: () => timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId)),
   };
 };

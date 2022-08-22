@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable import/no-cycle */
 import {
@@ -70,7 +71,8 @@ export const render = (state, value, previousValue, processName) => {
         inputEl.readOnly = true;
         break;
       }
-      default: return '';
+      default:
+        return '';
     }
   }
   if (processName === 'updatePostsProcess') {
@@ -97,7 +99,8 @@ export const render = (state, value, previousValue, processName) => {
         }
         break;
       }
-      default: return '';
+      default:
+        return '';
     }
   }
   if (processName === 'readPostProcess') {
@@ -115,11 +118,10 @@ export const render = (state, value, previousValue, processName) => {
         actualLinkEl.classList.add('link-secondary');
         break;
       }
-      default:
-        return '';
     }
     switch (actualState.modalStatus) {
       case 'open': {
+        console.log('open');
         const div = document.createElement('div');
         const modalTitleEl = document.querySelector('.modal-title');
         const modalBodyEl = document.querySelector('.modal-body');
@@ -152,8 +154,6 @@ export const render = (state, value, previousValue, processName) => {
 
         break;
       }
-      default:
-        return '';
     }
   }
 };

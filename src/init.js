@@ -55,17 +55,6 @@ export default () => {
   const postsContainerEl = document.querySelector('.posts');
   const modalContainerEl = document.querySelector('#modal');
 
-  // addFeedAndPostsProcess = {
-  //   status: "idle" | "loading" | "resolved" | "rejected"
-  // }
-  // updatePostsProcess = {
-  //   status: "idle" | "resolved" | "rejected"
-  // }
-  // readPostProcess = {
-  //   status: "idle" | "read",
-  //   modalStatus: "idle" | "open" | "close"
-  // }
-
   const watchedState = onChange(state, (path, value, previousValue) => {
     const processName = path.split('.')?.[0];
     render(state, value, previousValue, processName);

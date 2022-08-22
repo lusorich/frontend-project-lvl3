@@ -24,7 +24,8 @@ const getPostsClickHandler = ({ state }) => (e) => {
       actualState.status = 'idle';
       break;
     }
-    default: return '';
+    default:
+      return '';
   }
 };
 

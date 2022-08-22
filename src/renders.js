@@ -121,7 +121,6 @@ export const render = (state, value, previousValue, processName) => {
     }
     switch (actualState.modalStatus) {
       case 'open': {
-        console.log('open');
         const div = document.createElement('div');
         const modalTitleEl = document.querySelector('.modal-title');
         const modalBodyEl = document.querySelector('.modal-body');

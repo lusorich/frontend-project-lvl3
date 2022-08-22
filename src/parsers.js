@@ -1,6 +1,6 @@
-const parser = (rawData, type = "DOMParser", format) => {
+const parser = (rawData, type = 'DOMParser', format) => {
   switch (type) {
-    case "DOMParser":
+    case 'DOMParser':
       const parser = new DOMParser();
       const parseData = parser.parseFromString(rawData, format);
       return {

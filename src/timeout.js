@@ -1,5 +1,5 @@
-import axios from "axios";
-import parser from "./parsers";
+import axios from 'axios';
+import parser from './parsers.js';
 
 export const update = ({
   urls,
@@ -10,29 +10,29 @@ export const update = ({
 }) => {
   const timeoutIds = [];
 
-  const updater = (url) => {
+  const updater = url => {
     const timeoutId = setTimeout(() => {
       axios
         .get(
           `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(
-            url
-          )}`
+            url,
+          )}`,
         )
-        .then((response) => {
+        .then(response => {
           state.updatePostsProcess.newPosts = [];
           const { contents } = response.data;
-          const { doc } = parser(contents, "DOMParser", "text/html");
+          const { doc } = parser(contents, 'DOMParser', 'text/html');
 
-          const postsEl = doc.querySelectorAll("item");
+          const postsEl = doc.querySelectorAll('item');
           const newPosts = [];
 
-          [...postsEl].forEach((post) => {
-            const title = post.querySelector("title")?.textContent;
-            const description = post.querySelector("description")?.textContent;
-            const link = post.querySelector("link")?.nextSibling?.textContent;
+          [...postsEl].forEach(post => {
+            const title = post.querySelector('title')?.textContent;
+            const description = post.querySelector('description')?.textContent;
+            const link = post.querySelector('link')?.nextSibling?.textContent;
 
             const isPostExist =
-              currentPosts.filter((currentPost) => currentPost.title === title)
+              currentPosts.filter(currentPost => currentPost.title === title)
                 .length > 0;
 
             if (!isPostExist) {
@@ -46,10 +46,10 @@ export const update = ({
             }
           });
           state.updatePostsProcess = {
-            status: "update",
+            status: 'update',
             newPosts,
           };
-          state.updatePostsProcess.status = "idle";
+          state.updatePostsProcess.status = 'idle';
           state.posts.push(...newPosts);
         });
       updater(url);
@@ -57,10 +57,10 @@ export const update = ({
     timeoutIds.push(timeoutId);
   };
 
-  urls.forEach((url) => updater(url));
+  urls.forEach(url => updater(url));
 
   return {
     clearTimeouts: () =>
-      timeoutIds.forEach((timeoutId) => clearTimeout(timeoutId)),
+      timeoutIds.forEach(timeoutId => clearTimeout(timeoutId)),
   };
 };

@@ -48,7 +48,7 @@ const config = {
             // Loader for webpack to process CSS with PostCSS
             loader: 'postcss-loader',
             options: {
-              plugins: function () {
+              plugins() {
                 return [require('autoprefixer')];
               },
             },

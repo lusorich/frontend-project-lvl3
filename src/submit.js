@@ -73,7 +73,8 @@ const getSubmitHandler = ({ state }) => {
             });
           })
           .catch(e => {
-            if (e instanceof NetworkError) {
+            if (e.name === 'NetworkError') {
+              console.log('dsds');
               state.addFeedAndPostsProcess.error =
                 i18nextInstance.t('errorNetwork');
               state.addFeedAndPostsProcess.status = 'rejected';
